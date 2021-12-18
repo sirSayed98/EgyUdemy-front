@@ -1,6 +1,14 @@
+/* eslint-disable no-unused-vars */
+
+//react
 import React from "react";
-import "./Navbar.css";
+import { Link } from "react-router-dom";
+
+//material-ui
 import Paper from "@material-ui/core/Paper";
+
+import "./Navbar.css";
+
 const Navbar = () => {
   return (
     <Paper>
@@ -11,8 +19,12 @@ const Navbar = () => {
             <span>EgyUdemy</span>
           </div>
           <div className="d-flex un-register-control">
-            <span className="d-block mx-2">Login</span>
-            <span className="d-block mx-2">Register</span>
+            <Link to={"/login"}>
+              <span className="d-block mx-2">Login</span>
+            </Link>
+            <Link to={"/register"}>
+              <span className="d-block mx-2">Register</span>
+            </Link>
           </div>
         </div>
       </div>

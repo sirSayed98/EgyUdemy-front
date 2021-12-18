@@ -1,0 +1,11 @@
+.register-form{
+    width:400px;
+    padding: 10px 20px;
+}
+.register-logo{
+    height: 100px;
+}
+.selected-btn{
+    background-color: blue;
+    color:white
+}

@@ -1,0 +1,15 @@
+.header{
+    height: 300px;
+}
+.img-header{
+    height: 300px;
+    width: 100%;
+}
+.font-italic{
+    font-size: 80px;
+}
+.slogan{
+    font-size: 50px;
+    text-transform: uppercase ;
+}
+

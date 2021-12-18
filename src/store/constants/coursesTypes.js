@@ -1,0 +1,2 @@
+export const GET_COURSES = "GET_ALL_COURSES";
+export const GET_SINGLE_COURSES = "GET_SINGLE_COURSES";

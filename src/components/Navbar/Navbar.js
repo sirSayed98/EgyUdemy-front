@@ -16,7 +16,9 @@ const Navbar = () => {
         <div className="navbar">
           <div className="logo-container">
             {/* <img className="logo-img" src="./logos/logo2.png" alt="" /> */}
-            <span>EgyUdemy</span>
+            <Link to="/">
+              <span>EgyUdemy</span>
+            </Link>
           </div>
           <div className="d-flex un-register-control">
             <Link to={"/login"}>

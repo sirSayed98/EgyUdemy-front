@@ -30,3 +30,6 @@ code {
 .font-size-header{
   font-size: 30px;
 }
+.cursor{
+  cursor: pointer;
+}

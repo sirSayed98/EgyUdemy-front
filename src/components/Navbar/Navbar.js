@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import "./Navbar.css";
 import NotLoggedUser from "./NotLoggedUser";
 import Logout from "./Logout";
+import LoggedUser from "./LoggedUser";
 const Navbar = () => {
   const { user } = useSelector((state) => state.user);
   return (
@@ -24,7 +25,8 @@ const Navbar = () => {
             </Link>
           </div>
           {!user && <NotLoggedUser />}
-          {user && <Logout />}
+
+          {user && <LoggedUser />}
         </div>
       </div>
     </Paper>

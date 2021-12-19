@@ -19,7 +19,9 @@ const Logout = () => {
         title="Logout"
         className="btn"
         color="primary"
+        size="small"
       >
+        Logout
         <ExitToAppIcon />
       </IconButton>
     </>

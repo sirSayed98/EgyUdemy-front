@@ -71,7 +71,12 @@ const CustomCard = ({ data }) => {
             </CardActionArea>
             <CardActions>
               <div className="d-flex justify-content-center w-100">
-                <Button onClick={handleClick} size="small" color="primary">
+                <Button
+                  className="btn"
+                  onClick={handleClick}
+                  size="small"
+                  color="primary"
+                >
                   Learn More
                 </Button>
               </div>

@@ -5,10 +5,13 @@ import { getSingleCourse } from "../../store/actions/coursesAction";
 const SingleCourse = ({ match }) => {
   const dispatch = useDispatch();
   const { singleCourse } = useSelector((state) => state.courses);
+  console.log(singleCourse);
+
   useEffect(() => {
     let id = match?.params?.id;
     if (id) dispatch(getSingleCourse(id));
   }, [match, dispatch]);
+
   return <>{match?.params.id}</>;
 };
 

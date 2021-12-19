@@ -24,7 +24,7 @@ const Home = () => {
       <Navbar />
       <div className="vh-100">
         <div className="px-3 mt-3">
-          <span className="d-block text-center font-italic main-color">
+          <span className="d-block text-center font-italic header-1 main-color">
             Learn To Earn
           </span>
           <span className="d-block text-center font-header slogan ">

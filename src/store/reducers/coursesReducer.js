@@ -3,7 +3,9 @@ import * as coursesTypes from "../constants/coursesTypes";
 const initialState = {
   availableCourses: [],
   availableCoursesCount: 0,
+  coursesTable: [],
   singleCourse: {},
+  load: false,
   success: false,
   err: null,
 };
@@ -54,13 +56,25 @@ export const coursesReducer = (state = initialState, action) => {
       return {
         ...state,
         success: true,
+        load: false,
       };
     case coursesTypes.COURSE_FAIL:
       return {
         ...state,
         err: payload,
+        load: false,
+      };
+    case coursesTypes.GET_COURSES_TABLE:
+      return {
+        ...state,
+        coursesTable: payload,
       };
 
+    case coursesTypes.SET_LOADER:
+      return {
+        ...state,
+        load: true,
+      };
     default:
       return state;
   }

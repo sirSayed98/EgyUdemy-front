@@ -46,6 +46,7 @@ export const getSingleCourse = (id) => async (dispatch) => {
     console.log(error.response);
   }
 };
+
 export const createCourse = (form) => async (dispatch, getState) => {
   try {
     const config = {
@@ -66,6 +67,67 @@ export const createCourse = (form) => async (dispatch, getState) => {
       payload: "",
     });
     dispatch(getALLCourses());
+  } catch (error) {
+    let err = error?.response?.data?.error;
+    console.log(error.response);
+    dispatch({
+      type: coursesTypes.COURSE_FAIL,
+      payload: err,
+    });
+  }
+  setTimeout(() => {
+    dispatch({
+      type: coursesTypes.RESET_FLAGS,
+      payload: "",
+    });
+  }, 2000);
+};
+
+export const getCoursesTable = () => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().user.user.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      endPoints.BASE_URL + endPoints.GET_ALL_COURSES + `/instructor`,
+      config
+    );
+
+    dispatch({
+      type: coursesTypes.GET_COURSES_TABLE,
+      payload: data.data,
+    });
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
+export const deleteCourse = (id) => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().user.user.token}`,
+      },
+    };
+
+    dispatch({
+      type: coursesTypes.SET_LOADER,
+      payload: "",
+    });
+    await axios.delete(
+      endPoints.BASE_URL + endPoints.GET_ALL_COURSES + `/${id}`,
+      config
+    );
+    dispatch(getALLCourses());
+    dispatch({
+      type: coursesTypes.COURSE_SUCESS,
+      payload: "",
+    });
   } catch (error) {
     let err = error?.response?.data?.error;
     console.log(error.response);

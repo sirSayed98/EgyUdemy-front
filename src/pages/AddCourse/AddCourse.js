@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,6 @@ import { popUpMessage } from "../../utils/sweetAlert";
 import { createCourse } from "../../store/actions/coursesAction";
 import "./AddCourse.css";
 
-// ["beginner", "intermediate", "advanced"]
 const AddCourse = () => {
   const history = useHistory();
   const dispatch = useDispatch();

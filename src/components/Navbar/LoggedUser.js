@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 const adminMenu = [
   { id: 1, label: "Users", href: "/users" },
   { id: 2, label: "Courses", href: "/courses" },
-  { id: 2, label: "Add Course", href: "add-course" },
+  { id: 2, label: "Add Course", href: "/add-course" },
 ];
 const instructorMenu = [
-  { id: 1, label: "Courses" },
-  { id: 2, label: "Add Course" },
+  { id: 1, label: "Courses",href:"/courses" },
+  { id: 2, label: "Add Course",href:"/add-course" },
 ];
 
 const LoggedUser = () => {

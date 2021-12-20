@@ -4,6 +4,8 @@ const initialState = {
   availableCourses: [],
   availableCoursesCount: 0,
   singleCourse: {},
+  success: false,
+  err: null,
 };
 
 const createCourse = (data) => {
@@ -42,6 +44,23 @@ export const coursesReducer = (state = initialState, action) => {
         ...state,
         singleCourse: course,
       };
+    case coursesTypes.RESET_FLAGS:
+      return {
+        ...state,
+        success: false,
+        err: null,
+      };
+    case coursesTypes.COURSE_SUCESS:
+      return {
+        ...state,
+        success: true,
+      };
+    case coursesTypes.COURSE_FAIL:
+      return {
+        ...state,
+        err: payload,
+      };
+
     default:
       return state;
   }

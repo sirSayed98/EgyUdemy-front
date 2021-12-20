@@ -5,6 +5,7 @@ const initialState = {
   success: null,
   fail: null,
   err: null,
+  loadDone: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -33,18 +34,22 @@ export const userReducer = (state = initialState, action) => {
       };
     case userTypes.LOAD_USER:
       let localUser = JSON.parse(localStorage.getItem("user"));
+
       if (localUser) {
+        let localToken = localStorage.getItem("token");
+        localUser.token = localToken;
         return {
           ...state,
           user: localUser,
+          loadDone: true,
         };
       } else {
-        return initialState;
+        return { ...initialState, loadDone: true };
       }
     case userTypes.LOGOUT:
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      return initialState;
+      return { ...initialState, loadDone: true };
     default:
       return state;
   }

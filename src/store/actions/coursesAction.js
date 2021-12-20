@@ -46,3 +46,38 @@ export const getSingleCourse = (id) => async (dispatch) => {
     console.log(error.response);
   }
 };
+export const createCourse = (form) => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().user.user.token}`,
+      },
+    };
+
+    await axios.post(
+      endPoints.BASE_URL + endPoints.GET_ALL_COURSES,
+      form,
+      config
+    );
+
+    dispatch({
+      type: coursesTypes.COURSE_SUCESS,
+      payload: "",
+    });
+    dispatch(getALLCourses());
+  } catch (error) {
+    let err = error?.response?.data?.error;
+    console.log(error.response);
+    dispatch({
+      type: coursesTypes.COURSE_FAIL,
+      payload: err,
+    });
+  }
+  setTimeout(() => {
+    dispatch({
+      type: coursesTypes.RESET_FLAGS,
+      payload: "",
+    });
+  }, 2000);
+};

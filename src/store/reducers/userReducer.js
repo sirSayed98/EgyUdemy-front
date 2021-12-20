@@ -6,6 +6,8 @@ const initialState = {
   fail: null,
   err: null,
   loadDone: false,
+  usersTable: [],
+  loadReq: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -46,10 +48,23 @@ export const userReducer = (state = initialState, action) => {
       } else {
         return { ...initialState, loadDone: true };
       }
+    case userTypes.GET_ALL_USERS:
+      return {
+        ...state,
+        usersTable: payload,
+        loadReq: false,
+      };
+
     case userTypes.LOGOUT:
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       return { ...initialState, loadDone: true };
+
+    case userTypes.SET_LOAD_REQ:
+      return {
+        ...state,
+        loadReq: true,
+      };
     default:
       return state;
   }

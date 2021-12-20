@@ -6,3 +6,6 @@ export const RESET_FLAGS = "RESET_FLAGS";
 export const SET_ERR = "SET_ERR";
 export const LOAD_USER = "LOAD_USER";
 export const LOGOUT = "LOGOUT";
+export const GET_ALL_USERS = "GET_ALL_USERS";
+
+export const SET_LOAD_REQ = "SET_LOAD_REQ";

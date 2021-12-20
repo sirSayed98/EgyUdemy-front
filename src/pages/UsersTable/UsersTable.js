@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -14,15 +14,9 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Navbar from "../../components/Navbar/Navbar";
 
-import DeleteIcon from "@material-ui/icons/Delete";
-import CreateIcon from "@material-ui/icons/Create";
+import { getAllUsers, changeUserRole } from "./../../store/actions/userAction";
 
-import {
-  getCoursesTable,
-  deleteCourse,
-} from "../../store/actions/coursesAction";
-
-import { popUpMessage } from "../../utils/sweetAlert";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 const useStyles = makeStyles({
   table: {
@@ -31,74 +25,61 @@ const useStyles = makeStyles({
   },
 });
 
-const CoursesTable = () => {
+const UsersTable = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
 
-  const { user } = useSelector((state) => state.user);
-  const { coursesTable, success, err, load } = useSelector(
-    (state) => state.courses
-  );
+  const { user, usersTable, loadReq } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getCoursesTable());
+    dispatch(getAllUsers());
   }, []);
 
   useEffect(() => {
-    if (user === null || user.role === "learner") history.push("/");
+    if (user === null || !(user?.role === "admin")) history.push("/");
   }, [user]);
 
-  useEffect(() => {
-    if (success) {
-      popUpMessage(
-        "Delete course Successful",
-        "Explore your courses",
-        "success"
-      );
-    } else if (err) {
-      popUpMessage("Delete course fail", err, "error");
-    }
-  }, [success, err]);
+  const changeUser = (id, currentRole) => {
+    if (currentRole === "learner") dispatch(changeUserRole(id));
+  };
 
   return (
     <>
       <Navbar />
       <div className="container my-5 d-flex justify-content-center">
-        {!load ? (
+        {!loadReq ? (
           <TableContainer className={classes.table} component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Course Title</TableCell>
-                  <TableCell align="center">Course ID</TableCell>
-                  <TableCell align="right">Operations</TableCell>
+                  <TableCell>User Name</TableCell>
+                  <TableCell align="center">Email</TableCell>
+                  <TableCell align="right">Role</TableCell>
+                  <TableCell align="right">Created At</TableCell>
+                  <TableCell align="right">Operation</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {coursesTable.map((row) => (
-                  <TableRow key={row.id}>
+                {usersTable.map((row) => (
+                  <TableRow key={row._id}>
                     <TableCell component="th" scope="row">
-                      {row.title}
+                      {row.userName}
                     </TableCell>
 
-                    <TableCell align="right">{row.id}</TableCell>
+                    <TableCell align="right">{row.email}</TableCell>
+                    <TableCell align="right">{row.role}</TableCell>
                     <TableCell align="right">
-                      <DeleteIcon
-                        style={{ color: "red" }}
+                      {row.createdAt.split("T")[0]}
+                    </TableCell>
+                    <TableCell align="center">
+                      <LockOpenIcon
                         className="cursor"
-                        title="delete"
                         onClick={() => {
-                          dispatch(deleteCourse(row.id));
+                          changeUser(row._id, row.role);
                         }}
+                        color={row.role === "learner" ? "primary" : "disabled"}
                       />
-                      <Link to={`/edit-course/${row.id}`}>
-                        <CreateIcon
-                          color="primary"
-                          className="cursor"
-                          title="edit"
-                        />
-                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -113,4 +94,4 @@ const CoursesTable = () => {
   );
 };
 
-export default CoursesTable;
+export default UsersTable;

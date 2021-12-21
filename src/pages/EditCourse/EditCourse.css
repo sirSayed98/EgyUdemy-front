@@ -1,0 +1,24 @@
+.header-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.img-container{
+    min-width:  350px;
+    height: 50vh;
+    flex:3;
+    
+}
+.data-container{
+    min-width: 350px;
+    flex:1;
+}
+.img-style{
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    object-fit: cover;
+}

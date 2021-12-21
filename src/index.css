@@ -8,6 +8,7 @@ body {
 }
 :root{
   --mainColor: #007AF5;
+  --secondBtn:rgb(39, 179, 39);
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -29,6 +30,10 @@ code {
 }
 .font-size-header{
   font-size: 30px;
+}
+.bg-second{
+  background-color: var(--secondBtn) !important;
+  color: white !important;
 }
 .cursor{
   cursor: pointer;

@@ -47,3 +47,14 @@ code {
 .cursor{
   cursor: pointer;
 }
+.img-style{
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  object-fit: cover;
+}
+.img-section{
+  max-height:  40vh;
+  min-height: 300px;
+  overflow: hidden;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import List from "@material-ui/core/List";
@@ -9,18 +9,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
 
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import VideoCallIcon from "@material-ui/icons/VideoCall";
 
 import DescriptionIcon from "@material-ui/icons/Description";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import SubjectIcon from "@material-ui/icons/Subject";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 //material UI
 import TextField from "@material-ui/core/TextField";
@@ -60,8 +55,13 @@ const SkillStars = (level) => {
 const EditCourse = ({ match }) => {
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
+  const { user, usersTable, loadReq } = useSelector((state) => state.user);
+
   const [list, setList] = useState([]);
   const [edit, setEdit] = useState(false);
+
   const { singleCourse, load, success, err } = useSelector(
     (state) => state.courses
   );
@@ -113,6 +113,10 @@ const EditCourse = ({ match }) => {
 
     dispatch(editCourse(match.params.id, obj));
   };
+
+  useEffect(() => {
+    if (user === null || user.role === "learner") history.push("/");
+  }, [user]);
 
   return (
     <>

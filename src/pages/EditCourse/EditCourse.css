@@ -16,9 +16,3 @@
     min-width: 350px;
     flex:1;
 }
-.img-style{
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    object-fit: cover;
-}

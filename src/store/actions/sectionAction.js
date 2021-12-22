@@ -4,6 +4,7 @@ import * as sectionTypes from "../constants/sectionsTypes";
 import * as endPoints from "../constants/endPoints";
 import axios from "axios";
 import { getSingleCourse } from "./coursesAction";
+
 export const addSection = (id, form) => async (dispatch, getState) => {
   try {
     const config = {
@@ -43,4 +44,52 @@ export const addSection = (id, form) => async (dispatch, getState) => {
       payload: "",
     });
   }, 2000);
+};
+
+export const getSingleSection = (id) => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.get(
+      `${endPoints.BASE_URL}/sections/${id}`,
+      config
+    );
+    console.log(data);
+    dispatch({
+      type: sectionTypes.GET_SINGLE_SECTION,
+      payload: data.data,
+    });
+  } catch (error) {
+    let err = error?.response?.data?.error;
+    console.log(err);
+  }
+};
+
+export const editSection = (id) => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().user.user.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${endPoints.BASE_URL}/sections/${id}`,
+      {},
+      config
+    );
+    console.log(data);
+    // dispatch({
+    //   type: sectionTypes.GET_SINGLE_SECTION,
+    //   payload: data.data,
+    // });
+  } catch (error) {
+    let err = error?.response?.data?.error;
+    console.log(err);
+  }
 };

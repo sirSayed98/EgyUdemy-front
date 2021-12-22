@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Divider from "@material-ui/core/Divider";
@@ -9,8 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
 
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 //material UI
 import TextField from "@material-ui/core/TextField";
@@ -77,10 +75,12 @@ const Sections = ({ sections, courseId }) => {
                           />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                          <p className="font-size-header text-center">
-                            {el.title}
-                          </p>
-                          <p className="text-center">{el.description}</p>
+                          <Link to={`/edit-section/${el._id}`}>
+                            <p className="font-size-header text-center">
+                              {el.title}
+                            </p>
+                            <p className="text-center">{el.description}</p>
+                          </Link>
                           <div className="d-flex align-items-center justify-content-center">
                             <p className="d-flex align-items-center">
                               <VideoCallIcon

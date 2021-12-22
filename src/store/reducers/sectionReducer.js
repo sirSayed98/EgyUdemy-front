@@ -4,12 +4,19 @@ const initialState = {
   load: false,
   success: false,
   err: null,
+  singleSection: {},
 };
 
 export const sectionReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case sectionTypes.GET_SINGLE_SECTION:
+      return {
+        ...state,
+        singleSection: payload,
+      };
+
     case sectionTypes.RESET_FLAGS_SECTION:
       return {
         ...state,

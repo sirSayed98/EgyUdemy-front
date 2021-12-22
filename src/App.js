@@ -12,6 +12,8 @@ import AddCourse from "./pages/AddCourse/AddCourse";
 import CoursesTable from "./pages/CoursesTable/CoursesTable";
 import EditCourse from "./pages/EditCourse/EditCourse";
 import UsersTable from "./pages/UsersTable/UsersTable";
+import EditSection from "./pages/EditSection/EditSection";
+
 const App = () => {
   const dispatch = useDispatch();
   const { loadDone } = useSelector((state) => state.user);
@@ -33,6 +35,7 @@ const App = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/course/:id" component={SingleCourse} />
             <Route exact path="/edit-course/:id" component={EditCourse} />
+            <Route exact path="/edit-section/:id" component={EditSection} />
             <Route exact path="/add-course" component={AddCourse} />
             <Route exact path="/courses" component={CoursesTable} />
             <Route exact path="/users" component={UsersTable} />

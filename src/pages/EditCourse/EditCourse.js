@@ -9,13 +9,18 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import VideoCallIcon from "@material-ui/icons/VideoCall";
 
 import DescriptionIcon from "@material-ui/icons/Description";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import SubjectIcon from "@material-ui/icons/Subject";
+import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 //material UI
 import TextField from "@material-ui/core/TextField";
@@ -31,6 +36,7 @@ import { getSingleCourse, editCourse } from "../../store/actions/coursesAction";
 import { popUpMessage } from "../../utils/sweetAlert";
 import "./EditCourse.css";
 import Navbar from "./../../components/Navbar/Navbar";
+import Sections from "./Sections";
 
 const SkillStars = (level) => {
   if (level === "beginner") return <StarBorderIcon />;
@@ -59,6 +65,8 @@ const EditCourse = ({ match }) => {
   const { singleCourse, load, success, err } = useSelector(
     (state) => state.courses
   );
+
+  const { sections } = singleCourse;
   const [state, setState] = useState({});
 
   const onChange = (e) => {
@@ -118,7 +126,7 @@ const EditCourse = ({ match }) => {
               src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/cb/3c4030d65011e682d8b14e2f0915fa/shutterstock_226881610.jpg?auto=format%2Ccompress&dpr=1"
             />
           </div>
-          <div className="data-container">
+          <Paper className="data-container p-2">
             {!edit && (
               <>
                 <List>
@@ -265,8 +273,9 @@ const EditCourse = ({ match }) => {
                 </form>
               </>
             )}
-          </div>
+          </Paper>
         </div>
+        <Sections sections={sections} courseId={singleCourse._id} />
       </div>
     </>
   );

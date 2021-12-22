@@ -10,6 +10,15 @@ body {
   --mainColor: #007AF5;
   --secondBtn:rgb(39, 179, 39);
 }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--mainColor);
+  border-radius: 10px;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

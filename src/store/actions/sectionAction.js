@@ -69,7 +69,7 @@ export const getSingleSection = (id) => async (dispatch, getState) => {
   }
 };
 
-export const editSection = (id) => async (dispatch, getState) => {
+export const editSection = (id, form) => async (dispatch, getState) => {
   try {
     const config = {
       headers: {
@@ -77,19 +77,63 @@ export const editSection = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().user.user.token}`,
       },
     };
+    dispatch({
+      type: sectionTypes.SET_LOAD_SECTION,
+      payload: "",
+    });
+    await axios.put(`${endPoints.BASE_URL}/sections/${id}`, form, config);
+    dispatch(getSingleSection(id));
 
-    const { data } = await axios.put(
-      `${endPoints.BASE_URL}/sections/${id}`,
-      {},
-      config
-    );
-    console.log(data);
-    // dispatch({
-    //   type: sectionTypes.GET_SINGLE_SECTION,
-    //   payload: data.data,
-    // });
+    dispatch({
+      type: sectionTypes.EDIT_SECTION_SUCCESS,
+      payload: "",
+    });
   } catch (error) {
     let err = error?.response?.data?.error;
-    console.log(err);
+    dispatch({
+      type: err,
+      payload: err,
+    });
   }
+  setTimeout(() => {
+    dispatch({
+      type: sectionTypes.RESET_FLAGS_SECTION,
+      payload: "",
+    });
+  }, 2000);
 };
+
+export const AddActivities =
+  (id, data, activity) => async (dispatch, getState) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getState().user.user.token}`,
+        },
+      };
+      dispatch({
+        type: sectionTypes.SET_LOAD_SECTION,
+        payload: "",
+      });
+      await axios.put(`${endPoints.BASE_URL}/sections/${id}/${activity}`, data, config);
+      dispatch(getSingleSection(id));
+
+      dispatch({
+        type: sectionTypes.EDIT_SECTION_SUCCESS,
+        payload: "",
+      });
+    } catch (error) {
+      let err = error?.response?.data?.error;
+      dispatch({
+        type: err,
+        payload: err,
+      });
+    }
+    setTimeout(() => {
+      dispatch({
+        type: sectionTypes.RESET_FLAGS_SECTION,
+        payload: "",
+      });
+    }, 2000);
+  };

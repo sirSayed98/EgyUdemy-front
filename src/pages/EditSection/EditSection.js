@@ -3,51 +3,42 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import VideoCallIcon from "@material-ui/icons/VideoCall";
-
-import DescriptionIcon from "@material-ui/icons/Description";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import SubjectIcon from "@material-ui/icons/Subject";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 //material UI
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-
-import { getSingleCourse, editCourse } from "../../store/actions/coursesAction";
 import { popUpMessage } from "../../utils/sweetAlert";
 
 import Navbar from "./../../components/Navbar/Navbar";
+import MultiForm from "./MultiForm";
+
 import {
   getSingleSection,
   editSection,
+  AddActivities,
 } from "../../store/actions/sectionAction";
 const EditSection = ({ match }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [edit, setEdit] = useState(false);
+
+  const [edit, setEdit] = useState(null);
   const [state, setState] = useState({});
 
+  //PDF
+  const [PDFs, setPDFs] = useState([]);
+  const [singlePDF, setSinglePdf] = useState(null);
+
+  //Video
+  const [Videos, setVideos] = useState([]);
+  const [singleVideo, setSingleVideo] = useState(null);
+
   const { user } = useSelector((state) => state.user);
-  const { singleSection } = useSelector((state) => state.section);
+  const { singleSection, err, success, load } = useSelector(
+    (state) => state.section
+  );
 
   useEffect(() => {
     if (match?.params?.id) dispatch(getSingleSection(match.params.id));
@@ -59,8 +50,33 @@ const EditSection = ({ match }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(editSection(match.params.id, state));
+  };
 
-    dispatch(editSection(match.params.id));
+  const onChangePDF = (e) => {
+    setSinglePdf({ ...singlePDF, [e.target.name]: e.target.value });
+  };
+
+  const onChangeVideo = (e) => {
+    setSingleVideo({ ...singleVideo, [e.target.name]: e.target.value });
+  };
+
+  const addSinglePdf = () => {
+    setPDFs([...PDFs, singlePDF]);
+  };
+
+  const addSingleVideo = () => {
+    setVideos([...Videos, singleVideo]);
+  };
+
+  const onSubmitPDF = (e) => {
+    e.preventDefault();
+    dispatch(AddActivities(match.params.id, PDFs, "pdf"));
+  };
+
+  const onSubmitVideo = (e) => {
+    e.preventDefault();
+    dispatch(AddActivities(match.params.id, Videos, "video"));
   };
 
   useEffect(() => {
@@ -73,8 +89,25 @@ const EditSection = ({ match }) => {
   }, [singleSection]);
 
   useEffect(() => {
+    if (success) {
+      popUpMessage("Edit Section Successful", "done!", "success");
+      flushState();
+    } else if (err) {
+      popUpMessage("Edit Section Fail", err, "error");
+    }
+  }, [err, success, history]);
+
+  useEffect(() => {
     if (user === null || user.role === "learner") history.push("/");
   }, [user]);
+
+  const flushState = () => {
+    setEdit(null);
+    setPDFs([]);
+    setVideos([]);
+    setSinglePdf(null);
+    setSingleVideo(null);
+  };
 
   return (
     <>
@@ -91,41 +124,47 @@ const EditSection = ({ match }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} lg={4}>
-            {!edit && (
+            {edit == null && (
               <>
-                <Paper className="border px-4 py-2 rounded">
-                  <p className="font-header my-3">Title</p>
-                  <span>{singleSection.title}</span>
-                  <p className="font-header my-3">Description</p>
-                  <span>{singleSection.description}</span>
+                <Paper className="border px-4 py-2 rounded text-center">
+                  <h3 className="font-header my-3">Title</h3>
+                  <h6>{singleSection.title}</h6>
+                  <h3 className="font-header my-3">Description</h3>
+                  <h6>{singleSection.description}</h6>
                   <Button
                     fullWidth
-                    className="bg-second btn my-1"
+                    className="bg-second btn my-2"
                     variant="contained"
                     onClick={() => {
-                      setEdit(true);
+                      setEdit("editSection");
                     }}
                   >
                     Edit
                   </Button>
                   <Button
                     fullWidth
-                    className="bg-second btn my-1"
+                    className="bg-second btn my-2"
                     variant="contained"
+                    onClick={() => {
+                      setEdit("editPDFs");
+                    }}
                   >
                     Add PDFs
                   </Button>
                   <Button
                     fullWidth
-                    className="bg-second btn my-1"
+                    className="bg-second btn my-2"
                     variant="contained"
+                    onClick={() => {
+                      setEdit("editVideos");
+                    }}
                   >
                     Add Videos
                   </Button>
                 </Paper>
               </>
             )}
-            {edit && (
+            {edit === "editSection" && (
               <>
                 <Paper className="p-2">
                   <h4 className="font-header text-center">Add Section</h4>
@@ -166,7 +205,7 @@ const EditSection = ({ match }) => {
                           className="btn"
                           color="primary"
                           type="submit"
-                          //disabled={load}
+                          disabled={load}
                         >
                           Submit
                         </Button>
@@ -174,13 +213,13 @@ const EditSection = ({ match }) => {
                       <div className="w-100 mx-1">
                         <Button
                           onClick={() => {
-                            setEdit(false);
+                            setEdit(null);
                           }}
                           fullWidth
                           variant="contained"
                           className="btn"
                           color="secondary"
-                          // disabled={load}
+                          disabled={load}
                         >
                           Cancel
                         </Button>
@@ -188,6 +227,32 @@ const EditSection = ({ match }) => {
                     </div>
                   </form>
                 </Paper>
+              </>
+            )}
+            {edit === "editPDFs" && (
+              <>
+                <MultiForm
+                  formTitle="Add PDFs"
+                  data={PDFs}
+                  submitHandler={onSubmitPDF}
+                  changeHandler={onChangePDF}
+                  addHandler={addSinglePdf}
+                  flushState={flushState}
+                  load={load}
+                />
+              </>
+            )}
+            {edit === "editVideos" && (
+              <>
+                <MultiForm
+                  formTitle="Add Videos"
+                  data={Videos}
+                  submitHandler={onSubmitVideo}
+                  changeHandler={onChangeVideo}
+                  addHandler={addSingleVideo}
+                  flushState={flushState}
+                  load={load}
+                />
               </>
             )}
           </Grid>

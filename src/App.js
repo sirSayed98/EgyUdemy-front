@@ -13,6 +13,7 @@ import CoursesTable from "./pages/CoursesTable/CoursesTable";
 import EditCourse from "./pages/EditCourse/EditCourse";
 import UsersTable from "./pages/UsersTable/UsersTable";
 import EditSection from "./pages/EditSection/EditSection";
+import Test from "./pages/test";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const App = () => {
             <Route exact path="/add-course" component={AddCourse} />
             <Route exact path="/courses" component={CoursesTable} />
             <Route exact path="/users" component={UsersTable} />
+            <Route exact path="/test" component={Test} />
           </Switch>
         </Router>
       )}

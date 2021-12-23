@@ -42,6 +42,11 @@ export const sectionReducer = (state = initialState, action) => {
         ...state,
         load: true,
       };
+    case sectionTypes.EDIT_SECTION_SUCCESS:
+      return {
+        ...state,
+        success: true,
+      };
     default:
       return state;
   }

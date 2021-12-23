@@ -55,6 +55,7 @@ code {
 }
 .img-section{
   max-height:  40vh;
-  min-height: 300px;
+  min-height: 350px;
+  height: 100%;
   overflow: hidden;
 }

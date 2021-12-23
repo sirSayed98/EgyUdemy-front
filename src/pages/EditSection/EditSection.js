@@ -14,7 +14,8 @@ import { popUpMessage } from "../../utils/sweetAlert";
 
 import Navbar from "./../../components/Navbar/Navbar";
 import MultiForm from "./MultiForm";
-
+import PDFContainer from "../../components/Containers/PDFContainer";
+import VideoContainer from "../../components/Containers/VideoContainer";
 import {
   getSingleSection,
   editSection,
@@ -39,6 +40,7 @@ const EditSection = ({ match }) => {
   const { singleSection, err, success, load } = useSelector(
     (state) => state.section
   );
+  const { activitiesVideos, activitiesPDFs } = singleSection;
 
   useEffect(() => {
     if (match?.params?.id) dispatch(getSingleSection(match.params.id));
@@ -257,6 +259,12 @@ const EditSection = ({ match }) => {
             )}
           </Grid>
         </Grid>
+
+        <div className="border mt-5 rounded p-3">
+          <PDFContainer data={activitiesPDFs} />
+          <div className="mt-5"></div>
+          <VideoContainer data={activitiesVideos} />
+        </div>
       </div>
     </>
   );

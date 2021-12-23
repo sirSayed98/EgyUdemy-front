@@ -10,8 +10,8 @@ import Grid from "@material-ui/core/Grid";
 import VideoCallIcon from "@material-ui/icons/VideoCall";
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 
-const SectionsContainer = ({ data }) => {
-  if (data.length === 0)
+const SectionsContainer = ({ data, url = "edit-section" }) => {
+  if (data?.length === 0)
     return <h3 className="text-center">No sections available</h3>;
   return (
     <>
@@ -36,7 +36,7 @@ const SectionsContainer = ({ data }) => {
                     />
                   </Grid>
                   <Grid item xs={12} lg={6}>
-                    <Link to={`/edit-section/${el._id}`}>
+                    <Link to={`/${url}/${el._id}`}>
                       <p className="font-size-header text-center">{el.title}</p>
                       <p className="text-center">{el.description}</p>
                     </Link>

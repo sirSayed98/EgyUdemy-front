@@ -260,11 +260,11 @@ const EditSection = ({ match }) => {
           </Grid>
         </Grid>
 
-        <div className="border mt-5 rounded p-3">
+        <Paper className="mt-5 border rounded p-3">
           <PDFContainer data={activitiesPDFs} />
           <div className="mt-5"></div>
           <VideoContainer data={activitiesVideos} />
-        </div>
+        </Paper>
       </div>
     </>
   );

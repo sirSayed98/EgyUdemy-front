@@ -6,10 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 
-import VideoCallIcon from "@material-ui/icons/VideoCall";
-
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-
 //material UI
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";

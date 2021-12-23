@@ -2,6 +2,7 @@ import React from "react";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import Button from "@material-ui/core/Button";
 const PDFContainer = ({ data }) => {
+  if (data.length === 0) return <h3 className="text-center">No PDFs available</h3>;
   return (
     <>
       <p className="font-header font-size-header text-center">PDFs</p>

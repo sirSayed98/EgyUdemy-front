@@ -1,6 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 const VideoContainer = ({ data }) => {
+  if (data.length === 0)
+    return <h3 className="text-center">No Videos available</h3>;
+
   return (
     <>
       <p className="font-header font-size-header text-center">Videos</p>

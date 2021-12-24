@@ -21,7 +21,7 @@ const SectionsContainer = ({ data, url = "edit-section" }) => {
           overflowY: "scroll",
           overflowX: "hidden",
         }}
-        className="position-relative"
+        className="position-relative border"
       >
         {data?.map((el) => {
           return (

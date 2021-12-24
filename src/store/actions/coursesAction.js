@@ -221,3 +221,37 @@ export const addSection = (id, form) => async (dispatch, getState) => {
     });
   }, 2000);
 };
+export const addQuestion = (id, form) => async (dispatch, getState) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().user.user.token}`,
+      },
+    };
+
+    dispatch({
+      type: coursesTypes.SET_LOADER,
+      payload: "",
+    });
+    await axios.post(`${endPoints.BASE_URL}/courses/${id}/ask`, form, config);
+    dispatch(getSingleCourse(id));
+    dispatch({
+      type: coursesTypes.COURSE_SUCESS,
+      payload: "",
+    });
+  } catch (error) {
+    let err = error?.response?.data?.error;
+    console.log(error.response);
+    dispatch({
+      type: coursesTypes.COURSE_FAIL,
+      payload: err,
+    });
+  }
+  setTimeout(() => {
+    dispatch({
+      type: coursesTypes.RESET_FLAGS,
+      payload: "",
+    });
+  }, 2000);
+};

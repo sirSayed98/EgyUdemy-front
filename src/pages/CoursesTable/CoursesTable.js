@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,6 +61,17 @@ const CoursesTable = () => {
       popUpMessage("Delete course fail", err, "error");
     }
   }, [success, err]);
+
+  if (coursesTable.length === 0) {
+    return (
+      <>
+        <Navbar />
+        <div className="container mt-5">
+          <h4 className="text-center">You don't have courses untill now</h4>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

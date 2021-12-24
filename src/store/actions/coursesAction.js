@@ -123,7 +123,7 @@ export const deleteCourse = (id) => async (dispatch, getState) => {
       endPoints.BASE_URL + endPoints.GET_ALL_COURSES + `/${id}`,
       config
     );
-    dispatch(getALLCourses());
+    dispatch(getCoursesTable());
     dispatch({
       type: coursesTypes.COURSE_SUCESS,
       payload: "",

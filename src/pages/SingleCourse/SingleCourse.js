@@ -20,7 +20,7 @@ import TextField from "@material-ui/core/TextField";
 import Navbar from "../../components/Navbar/Navbar";
 import SectionsContainer from "./../../components/Containers/SectionsContainer";
 import { getSingleCourse } from "../../store/actions/coursesAction";
-import { addQuestion } from "../../store/actions/coursesAction";
+import { addQuestion, addAnswer } from "../../store/actions/coursesAction";
 import { Divider } from "@material-ui/core";
 
 const SkillStars = (level) => {
@@ -45,9 +45,13 @@ const SkillStars = (level) => {
 const SingleCourse = ({ match }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const [list, setList] = useState([]);
   const [state, setState] = useState({
     title: "",
+  });
+  const [stateAnswer, setStateAnswer] = useState({
+    answer: "",
   });
 
   const { singleCourse } = useSelector((state) => state.courses);
@@ -63,7 +67,9 @@ const SingleCourse = ({ match }) => {
   const onChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-
+  const onChangeAnswer = (e) => {
+    setStateAnswer({ ...stateAnswer, [e.target.name]: e.target.value });
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     if (user === null) {
@@ -73,6 +79,18 @@ const SingleCourse = ({ match }) => {
     dispatch(addQuestion(match?.params?.id, state));
     setState({
       title: "",
+    });
+  };
+  const onSubmitAnswer = (e, id) => {
+    e.preventDefault();
+    if (user === null) {
+      history.push("/login");
+      return;
+    }
+    dispatch(addAnswer(match?.params?.id, id, stateAnswer));
+    setStateAnswer({ answer: "" });
+    [...document.getElementsByClassName("form-control")].forEach((el) => {
+      el.value = "";
     });
   };
 
@@ -147,19 +165,66 @@ const SingleCourse = ({ match }) => {
             >
               <h2 className="font-header text-center mt-3">FAQs</h2>
               {FAQs &&
-                FAQs.map((el) => {
+                FAQs.map((question) => {
                   return (
-                    <Paper className="border p-3 my-3" key={el.id}>
-                      <h1 className="text-danger font-header">{el.title}</h1>
+                    <Paper className="border p-3 my-3" key={question.id}>
+                      <h1 className="text-danger font-header">
+                        {question.title}
+                      </h1>
                       <div className="d-flex justify-content-between">
                         <span className="d-block font-header">
-                          <small>{el.createdAt?.split("T")[0]}</small>
+                          <small>{question.createdAt?.split("T")[0]}</small>
                         </span>
                         <span className="d-block font-header">
-                          ( {el.answers?.length} )answers
+                          ( {question.answers?.length} )answers
                         </span>
                       </div>
                       <Divider />
+                      <div>
+                        <form
+                          onSubmit={(e) => {
+                            onSubmitAnswer(e, question._id);
+                          }}
+                        >
+                          <div className="py-2 mt-3">
+                            <input
+                              onChange={onChangeAnswer}
+                              className="form-control w-100"
+                              type="text"
+                              name="answer"
+                              required
+                              placeholder="answer"
+                              style={{ borderRadius: "40px" }}
+                            ></input>
+                          </div>
+                        </form>
+                        <Divider />
+                        {question.answers.map((el) => {
+                          return (
+                            <Paper className="px-2 border my-2" key={el._id}>
+                              <div>
+                                <div className="d-flex p-2">
+                                  <img
+                                    className="rounded-circle d-block"
+                                    style={{ width: "50px", height: "50px" }}
+                                    src="https://www.w3schools.com/howto/img_avatar.png"
+                                    alt="img"
+                                  />
+                                  <div className="d-flex justify-content-between  w-100">
+                                    <span className="d-block font-header mx-2">
+                                      {el.userName}
+                                    </span>
+                                    <span className="d-block font-header mx-2">
+                                      {el.createdAt?.split("T")[0]}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="m-2">{el.answer}</div>
+                              </div>
+                            </Paper>
+                          );
+                        })}
+                      </div>
                     </Paper>
                   );
                 })}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -29,7 +30,9 @@ const Login = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
     //console.log(state);
     dispatch(login(state));
   };
@@ -51,7 +54,7 @@ const Login = () => {
       <Navbar />
       <div className="d-flex justify-content-center vh-100 align-items-center">
         <Paper>
-          <form onSubmit={onSubmit} className="login-form">
+          <form method="POST" onSubmit={onSubmit} className="login-form">
             <div className="d-flex justify-content-center">
               <img
                 className="d-block login-logo"
@@ -64,7 +67,7 @@ const Login = () => {
                 size="small"
                 label="Email / Username"
                 variant="outlined"
-                type="email"
+                type="text"
                 required
                 name="userName"
                 className="w-100"
@@ -89,6 +92,7 @@ const Login = () => {
                 className="w-100 btn"
                 variant="contained"
                 color="primary"
+                type="submit"
               >
                 Login
               </Button>

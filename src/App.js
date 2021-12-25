@@ -14,6 +14,7 @@ import EditCourse from "./pages/EditCourse/EditCourse";
 import UsersTable from "./pages/UsersTable/UsersTable";
 import EditSection from "./pages/EditSection/EditSection";
 import SingleSection from "./pages/SingleSection/SingleSection";
+import Profile from "./pages/Profile/Profile";
 import Test from "./pages/test";
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
             <Route exact path="/add-course" component={AddCourse} />
             <Route exact path="/courses" component={CoursesTable} />
             <Route exact path="/users" component={UsersTable} />
+            <Route exact path="/profile" component={Profile} />
             <Route exact path="/test" component={Test} />
           </Switch>
         </Router>

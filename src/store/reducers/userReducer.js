@@ -8,6 +8,7 @@ const initialState = {
   loadDone: false,
   usersTable: [],
   loadReq: false,
+  redirect: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -30,9 +31,10 @@ export const userReducer = (state = initialState, action) => {
     case userTypes.RESET_FLAGS:
       return {
         ...state,
-        sucess: null,
+        success: null,
         fail: null,
         err: null,
+        redirect: null,
       };
     case userTypes.LOAD_USER:
       let localUser = JSON.parse(localStorage.getItem("user"));
@@ -53,6 +55,11 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         usersTable: payload,
         loadReq: false,
+      };
+    case userTypes.REDIRECT:
+      return {
+        ...state,
+        redirect: true,
       };
 
     case userTypes.LOGOUT:

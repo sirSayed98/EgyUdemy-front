@@ -9,3 +9,4 @@ export const LOGOUT = "LOGOUT";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 
 export const SET_LOAD_REQ = "SET_LOAD_REQ";
+export const REDIRECT = "REDIRECT";

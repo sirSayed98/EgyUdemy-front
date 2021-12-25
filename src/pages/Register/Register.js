@@ -72,7 +72,7 @@ const Register = () => {
                 size="small"
                 label="First Name"
                 variant="outlined"
-                type="email"
+                type="text"
                 required
                 className="w-100"
                 name="firstName"
@@ -84,7 +84,7 @@ const Register = () => {
                 size="small"
                 label="Last Name"
                 variant="outlined"
-                type="email"
+                type="text"
                 required
                 className="w-100"
                 name="lastName"

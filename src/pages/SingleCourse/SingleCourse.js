@@ -55,7 +55,8 @@ const SingleCourse = ({ match }) => {
   });
 
   const { singleCourse } = useSelector((state) => state.courses);
-  const { FAQs } = singleCourse;
+
+  const { FAQs, instructor } = singleCourse;
   const { user } = useSelector((state) => state.user);
   const { sections, load } = singleCourse;
 
@@ -153,7 +154,36 @@ const SingleCourse = ({ match }) => {
           </Grid>
         </Grid>
 
-        <Paper className="rounded mt-5 p-3">
+        <Grid
+          container
+          className="d-flex justify-content-center align-items-center"
+        >
+          <Paper className="rounded mt-5 ">
+            <Grid style={{ width: "400px" }} className="px-2" item xs={12}>
+              <div className="d-flex p-3 align-items-center">
+                <div className="mr-3">
+                  <img
+                    className="rounded-circle d-block"
+                    style={{ width: "100px", height: "100px" }}
+                    src="https://www.w3schools.com/howto/img_avatar.png"
+                    alt="img"
+                  />
+                </div>
+                <div>
+                  <p className="text-ceter text-capitalize">
+                    {`${instructor?.firstName} ${instructor?.lastName}`}
+                  </p>
+                  <p className="text-ceter">@ {instructor?.userName}</p>
+                  <p className="text-ceter text-capitalize"> {instructor?.instructorDesc}</p>
+                  <p className="text-ceter">
+                    {instructor?.courses?.length} courses
+                  </p>
+                </div>
+              </div>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Paper className="rounded border mt-5 p-3">
           <h2 className="font-header text-center">Sections</h2>
           <SectionsContainer url="section" data={sections} />
         </Paper>

@@ -47,6 +47,7 @@ const UsersTable = () => {
   return (
     <>
       <Navbar />
+
       <div className="container my-5 d-flex justify-content-center">
         {!loadReq ? (
           <TableContainer className={classes.table} component={Paper}>
@@ -61,28 +62,31 @@ const UsersTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {usersTable.map((row) => (
-                  <TableRow key={row._id}>
-                    <TableCell component="th" scope="row">
-                      {row.userName}
-                    </TableCell>
+                {usersTable &&
+                  usersTable.map((row) => (
+                    <TableRow key={row._id}>
+                      <TableCell component="th" scope="row">
+                        {row.userName}
+                      </TableCell>
 
-                    <TableCell align="right">{row.email}</TableCell>
-                    <TableCell align="right">{row.role}</TableCell>
-                    <TableCell align="right">
-                      {row.createdAt.split("T")[0]}
-                    </TableCell>
-                    <TableCell align="center">
-                      <LockOpenIcon
-                        className="cursor"
-                        onClick={() => {
-                          changeUser(row._id, row.role);
-                        }}
-                        color={row.role === "learner" ? "primary" : "disabled"}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell align="right">{row.email}</TableCell>
+                      <TableCell align="right">{row.role}</TableCell>
+                      <TableCell align="right">
+                        {row?.createdAt?.split("T")[0]}
+                      </TableCell>
+                      <TableCell align="center">
+                        <LockOpenIcon
+                          className="cursor"
+                          onClick={() => {
+                            changeUser(row._id, row.role);
+                          }}
+                          color={
+                            row.role === "learner" ? "primary" : "disabled"
+                          }
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

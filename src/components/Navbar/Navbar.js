@@ -19,7 +19,6 @@ const Navbar = () => {
       <div className="container py-2">
         <div className="navbar">
           <div className="logo-container">
-            {/* <img className="logo-img" src="./logos/logo2.png" alt="" /> */}
             <Link to="/">
               <span className="font-italic logo-text">EgyUdemy</span>
             </Link>

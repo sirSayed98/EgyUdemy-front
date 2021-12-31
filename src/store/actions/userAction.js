@@ -28,8 +28,6 @@ export const login = (form) => async (dispatch) => {
 
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(storedData));
-
-    // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     let err = error?.response?.data?.error;
     console.log(err);
@@ -90,6 +88,7 @@ export const register = (form) => async (dispatch) => {
 };
 
 export const getAllUsers = () => async (dispatch, getState) => {
+  console.log();
   const config = {
     headers: {
       "Content-Type": "application/json",

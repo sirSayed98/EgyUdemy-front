@@ -12,8 +12,8 @@ const adminMenu = [
   { id: 2, label: "Add Course", href: "/add-course" },
 ];
 const instructorMenu = [
-  { id: 1, label: "Courses",href:"/courses" },
-  { id: 2, label: "Add Course",href:"/add-course" },
+  { id: 1, label: "Courses", href: "/courses" },
+  { id: 2, label: "Add Course", href: "/add-course" },
 ];
 
 const LoggedUser = () => {
@@ -42,7 +42,7 @@ const LoggedUser = () => {
         onClick={handleClick}
         className="d-block font-italic cursor"
       >
-        Mohamed
+        {user.firstName}
       </span>
 
       <Menu

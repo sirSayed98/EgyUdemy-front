@@ -53,11 +53,17 @@ const Profile = () => {
   };
   const setUserState = () => {
     var obj = {};
-    ["firstName", "lastName", "birthDate", "email", "userName", "role"].forEach(
-      (el) => {
-        obj[el] = user[el];
-      }
-    );
+    [
+      "firstName",
+      "lastName",
+      "birthDate",
+      "email",
+      "userName",
+      "role",
+      "instructorDesc",
+    ].forEach((el) => {
+      obj[el] = user[el];
+    });
     setState(obj);
   };
 
@@ -194,6 +200,22 @@ const Profile = () => {
                       disabled
                     />
                   </div>
+                  {user?.role !== "learner" && (
+                    <div className="my-3">
+                      <TextField
+                        size="small"
+                        className="w-100"
+                        label="Description"
+                        variant="outlined"
+                        type="text"
+                        required
+                        name="instructorDesc"
+                        value={state?.instructorDesc}
+                        onChange={onChange}
+                        disabled={edit === "password"}
+                      />
+                    </div>
+                  )}
                   <div className="my-2">
                     <div className="d-flex my-2">
                       <Button

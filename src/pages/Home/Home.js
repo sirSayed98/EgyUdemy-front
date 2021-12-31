@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="vh-100">
+      <div className="container vh-100">
         <div className="px-3 mt-3">
           <span className="d-block text-center font-italic header-1 main-color">
             Learn To Earn

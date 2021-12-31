@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleSection } from "../../store/actions/sectionAction";
 import Grid from "@material-ui/core/Grid";
@@ -9,14 +10,22 @@ import Paper from "@material-ui/core/Paper";
 import PDFContainer from "../../components/Containers/PDFContainer";
 import VideoContainer from "../../components/Containers/VideoContainer";
 import Navbar from "../../components/Navbar/Navbar";
+
 const SingleSection = ({ match }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { singleSection } = useSelector((state) => state.section);
   const { activitiesVideos, activitiesPDFs } = singleSection;
 
   useEffect(() => {
     if (match?.params?.id) dispatch(getSingleSection(match.params.id));
   }, [match]);
+
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user === null) history.push("/login");
+  }, [user]);
   return (
     <>
       <Navbar />
